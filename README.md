@@ -22,8 +22,8 @@ The simulation stops when all philosophers have eaten at least `number_of_times_
 
 ## Structure
 ### main struct
+- `struct` philosopher
 - input data (arguments)
-- philosophers (array of `philosopher` structs)
 
 ### philosopher struct
 - `int` number
@@ -41,9 +41,9 @@ The simulation stops when all philosophers have eaten at least `number_of_times_
 - `number_of_times_each_philosopher_must_eat` (optional) must be >= 0
 
 ## Initialization
-- Create main struct
 - Create fork struct for each fork (same as philosopher count)
 	- init fork mutex
-- Create philosopher struct for each philosopher
-	- include pointer for left and right forks
-- Start a thread for each philosopher
+- For each philosopher:
+	- create philosopher struct (include pointer for left and right forks)
+	- create main struct (with input args + philosopher struct)
+	- start a thread for each philosopher (with main struct as parameter)
