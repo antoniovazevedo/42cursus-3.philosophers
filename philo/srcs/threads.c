@@ -6,13 +6,11 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 23:16:09 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/05/23 23:29:50 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/05/23 23:41:42 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
-#include <unistd.h>
 
 static void	free_threads(pthread_t **list, int count)
 {
@@ -25,29 +23,6 @@ static void	free_threads(pthread_t **list, int count)
 		i++;
 	}
 	free(list);
-}
-
-static void	print_state_message(int nb, char *state)
-{
-	struct timeval	*time;
-
-	time = (struct timeval *)malloc(sizeof(struct timeval));
-	if (!time)
-		return ;
-	gettimeofday(time, NULL);
-	printf("%d %d %s\n", time->tv_usec, nb, state);
-	free(time);
-}
-
-// pthread_mutex_lock(&data->philo->mutex);
-void	*main_philo_thread(void *ptr)
-{
-	t_main	*data;
-
-	data = ptr;
-	sleep(1);
-	print_state_message(data->philo->nb, "is initialized");
-	return (NULL);
 }
 
 int	create_threads(t_params *params, t_fork **forks)

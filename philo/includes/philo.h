@@ -6,7 +6,7 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 18:21:11 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/05/23 23:30:18 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/05/23 23:41:16 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void		free_forks(t_fork **list, int count);
 t_fork		**create_forks(int count);
 
 /* threads.c */
-void		*main_philo_thread(void *ptr);
+// void		*main_philo_thread(void *ptr);
 int			create_threads(t_params *params, t_fork **forks);
 
 /* philos.c */
