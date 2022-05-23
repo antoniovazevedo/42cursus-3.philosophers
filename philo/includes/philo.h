@@ -6,7 +6,7 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 18:21:11 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/05/23 20:25:30 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/05/23 20:34:57 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <limits.h>
 # include <stdlib.h>
+#include <pthread.h>
 
 typedef struct s_main {
 	int	philo_count;
@@ -27,8 +28,9 @@ typedef struct s_main {
 
 typedef struct s_fork
 {
-	int	nb;
-	int is_taken;
+	int				nb;
+	int				is_taken;
+	pthread_mutex_t	mutex;
 }	t_fork;
 
 typedef struct s_philo
