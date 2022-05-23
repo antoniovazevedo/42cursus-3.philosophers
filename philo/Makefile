@@ -1,5 +1,9 @@
 SRCS	= 	srcs/main.c \
-			srcs/validation.c
+			srcs/validation.c \
+			srcs/threads.c \
+			srcs/forks.c \
+			srcs/philos.c
+
 OBJS	= ${SRCS:.c=.o}
 INCDIR	= includes
 NAME	= philo
