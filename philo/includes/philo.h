@@ -6,7 +6,7 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 18:21:11 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/05/23 20:40:16 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/05/23 20:52:51 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_fork
 
 typedef struct s_philo
 {
-	int 			nb;
+	int				nb;
 	enum e_philo_state
 	{
 		thinking = 0,
