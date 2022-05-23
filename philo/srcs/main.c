@@ -6,7 +6,7 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 18:25:29 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/05/23 19:57:34 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/05/23 20:06:14 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	main = fill_input_from_args(argc, argv);
+	if (main->philo_count < 1)
+	{
+		printf("Error\nNumber of philosophers must be greater than 0.\n");
+		free(main);
+		return (1);
+	}
 	printf("philo_count =\t %d\n", main->philo_count);
 	printf("time_to_die =\t %d\n", main->time_to_die);
 	printf("time_to_eat =\t %d\n", main->time_to_eat);
