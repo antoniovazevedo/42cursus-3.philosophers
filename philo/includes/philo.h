@@ -6,7 +6,7 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 18:21:11 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/05/16 20:22:48 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/05/23 20:25:30 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,23 @@ typedef struct s_main {
 	int	number_of_times_each_philosopher_must_eat;
 }	t_main;
 
-typedef struct s_philo {
+typedef struct s_fork
+{
 	int	nb;
-	enum e_philo_state{thinking = 0, eating = 1, sleeping = 2} state;
+	int is_taken;
+}	t_fork;
+
+typedef struct s_philo
+{
+	int			nb;
+	enum e_philo_state
+	{
+		thinking = 0,
+		eating = 1,
+		sleeping = 2
+	}			state;
+	t_fork		*left_fork;
+	t_fork		*right_fork;
 }	t_philo;
 
 t_main	*fill_input_from_args(int argc, char **args);
