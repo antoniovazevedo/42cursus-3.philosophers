@@ -6,7 +6,7 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 01:02:45 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/04/02 19:06:03 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/05/23 21:13:07 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ int	main(void)
 	pthread_create(thread1, NULL, &thread_main, "1");
 	pthread_create(thread2, NULL, &thread_main, "2");
 	pthread_create(thread3, NULL, &thread_main, "3");
-	pthread_join(*thread1, NULL);
-	pthread_join(*thread2, NULL);
-	pthread_join(*thread3, NULL);
-	printf("ending!\n");
-	printf("\npid:\t%d\n", getpid());
+	// pthread_join(*thread1, NULL);
+	// pthread_join(*thread2, NULL);
+	// pthread_join(*thread3, NULL);
+	// printf("ending!\n");
+	// printf("\npid:\t%d\n", getpid());
 	sleep(5);
 	return (0);
 }

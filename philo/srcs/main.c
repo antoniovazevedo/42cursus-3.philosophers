@@ -6,11 +6,14 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 18:25:29 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/05/23 21:04:45 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/05/23 21:21:19 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+#include <sys/time.h>
+#include <unistd.h>
 
 void	debug_params(t_params *params)
 {
@@ -22,22 +25,22 @@ void	debug_params(t_params *params)
 		printf("number_of_times_each_philosopher_must_eat =\t %d\n", params->number_of_times_each_philosopher_must_eat);
 }
 
-void debug_philo(t_philo *philo)
+void	debug_philo(t_philo *philo)
 {
 	printf("initialize_philo (%d)\n", philo->nb);
 
 	if (philo->right_fork)
-		printf("forks: L %d\t\t R %d\n\n", philo->left_fork->nb, philo->right_fork->nb);
+		printf("forks: L %d\t\t R %d\n\n",
+		philo->left_fork->nb, philo->right_fork->nb);
 	else
 		printf("forks: L %d\t\t R X\n\n", philo->left_fork->nb);
 }
 
-
 t_fork	**create_forks(int count)
 {
-	int	i;
 	t_fork	**forks;
 	t_fork	*fork;
+	int		i;
 
 	forks = (t_fork **)malloc(sizeof(t_fork *) * count);
 	i = 0;
@@ -46,24 +49,39 @@ t_fork	**create_forks(int count)
 		fork = (t_fork *)malloc(sizeof(t_fork));
 		fork->nb = i;
 		fork->is_taken = 0;
+		pthread_mutex_init(&fork->mutex, NULL);
 		forks[i] = fork;
 		i++;
 	}
 	return (forks);
 }
 
+void	*thread_main(void *ptr)
+{
+	t_main			*data;
+	struct timeval	*time;
+
+	data = (t_main *)ptr;
+	time = (struct timeval *)malloc(sizeof(struct timeval));
+	gettimeofday(time, NULL);
+	sleep(2);
+
+	pthread_mutex_lock(&data->philo->mutex);
+	printf("%ld.%d\tHello from philo %d!\n", time->tv_sec, time->tv_usec, data->philo->nb);
+	pthread_mutex_unlock(&data->philo->mutex);
+	free(time);
+	return (NULL);
+}
+
 void	initialize_philo(t_params *params, int nb, t_fork **forks)
 {
-	t_philo	*philo;
-
-	(void)params;
-	(void)forks;
+	t_main		*main;
+	t_philo		*philo;
+	pthread_t	*thread;
 
 	philo = (t_philo *)malloc(sizeof(t_philo));
 	philo->nb = nb;
 	philo->state = thinking;
-
-
 	philo->left_fork = forks[nb];
 	philo->right_fork = forks[0];
 	if (params->philo_count < 2)
@@ -71,9 +89,15 @@ void	initialize_philo(t_params *params, int nb, t_fork **forks)
 	else if (nb + 1 < params->philo_count)
 		philo->right_fork = forks[nb + 1];
 
+	pthread_mutex_init(&philo->mutex, NULL);
 	debug_philo(philo);
-	
-	// start thread
+
+	main = (t_main *)malloc(sizeof(t_main));
+	main->params = params;
+	main->philo = philo;
+	printf("starting thread for philo nb=%d\n", main->philo->nb);
+	thread = (pthread_t *)malloc(sizeof(pthread_t));
+	pthread_create(thread, NULL, &thread_main, &main);
 }
 
 int	main(int argc, char **argv)
@@ -99,6 +123,7 @@ int	main(int argc, char **argv)
 	philo_i = -1;
 	while (philo_i < params->philo_count - 1)
 		initialize_philo(params, ++philo_i, forks);
+	sleep(5);
 	free(params);
 	return (0);
 }
