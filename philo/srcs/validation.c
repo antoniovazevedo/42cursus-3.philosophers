@@ -6,7 +6,7 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 18:26:13 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/05/23 19:54:14 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/05/23 20:37:49 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,16 @@ static int	ft_atoi(const char *str)
 	return (nbr);
 }
 
-t_main	*fill_input_from_args(int argc, char **args)
+t_params	*fill_input_from_args(int argc, char **args)
 {
-	t_main	*main;
+	t_params	*params;
 
-	main = (t_main *) malloc(sizeof(t_main));
-	main->philo_count = ft_atoi(args[1]);
-	main->time_to_die = ft_atoi(args[2]);
-	main->time_to_eat = ft_atoi(args[3]);
-	main->time_to_sleep = ft_atoi(args[4]);
+	params = (t_params *) malloc(sizeof(t_params));
+	params->philo_count = ft_atoi(args[1]);
+	params->time_to_die = ft_atoi(args[2]);
+	params->time_to_eat = ft_atoi(args[3]);
+	params->time_to_sleep = ft_atoi(args[4]);
 	if (argc == 6)
-		main->number_of_times_each_philosopher_must_eat = ft_atoi(args[5]);
-	return (main);
+		params->number_of_times_each_philosopher_must_eat = ft_atoi(args[5]);
+	return (params);
 }
