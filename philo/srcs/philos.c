@@ -6,7 +6,7 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 23:27:30 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/05/24 01:12:11 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/05/24 01:21:14 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ pthread_t	*initialize_philo_thread(t_params *params, int nb, t_fork **forks)
 	philo = (t_philo *)malloc(sizeof(t_philo));
 	philo->nb = nb;
 	philo->last_meal_at = params->start_time;
-	philo->state = thinking;
+	philo->meal_count = 0;
 	philo->left_fork = forks[nb];
 	philo->right_fork = forks[0];
 	if (params->philo_count < 2)
@@ -68,9 +68,9 @@ void	update_philo_state(t_philo *philo, enum e_philo_state state)
 	philo->state = state;
 	pthread_mutex_unlock(&philo->mutex);
 	if (state == thinking)
-		print_state_message(philo->nb, "is thinking");
+		print_state_message(philo->nb + 1, "is thinking");
 	else if (state == eating)
-		print_state_message(philo->nb, "is eating");
+		print_state_message(philo->nb + 1, "is eating");
 	else if (state == sleeping)
-		print_state_message(philo->nb, "is sleeping");
+		print_state_message(philo->nb + 1, "is sleeping");
 }

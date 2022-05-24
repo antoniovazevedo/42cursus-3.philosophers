@@ -6,7 +6,7 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 18:25:29 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/05/24 01:11:07 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/05/24 01:16:17 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ int	main(int argc, char **argv)
 	params = fill_input_from_args(argc, argv);
 	if (!params)
 		return (1);
+	params->active = 1;
 	params->start_time = get_time_ms();
 	params->dead_philo_count = 0;
-	printf("start time is %lld\n", params->start_time);
 	forks = create_forks(params->philo_count);
 	if (!forks)
 		return (error(params, forks));

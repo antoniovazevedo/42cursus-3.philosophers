@@ -6,7 +6,7 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 18:26:13 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/05/23 23:31:32 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/05/24 01:19:03 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ t_params	*fill_input_from_args(int argc, char **args)
 	params->time_to_eat = ft_atoi(args[3]);
 	params->time_to_sleep = ft_atoi(args[4]);
 	if (argc == 6)
-		params->number_of_times_each_philosopher_must_eat = ft_atoi(args[5]);
+		params->min_meal_count = ft_atoi(args[5]);
 	return (params);
 }

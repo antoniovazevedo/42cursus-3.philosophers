@@ -6,7 +6,7 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 18:21:11 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/05/24 01:10:07 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/05/24 01:20:25 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ typedef struct s_params {
 	int			time_to_die;
 	int			time_to_eat;
 	int			time_to_sleep;
-	int			number_of_times_each_philosopher_must_eat;
+	int			min_meal_count;
 	long long	start_time;
 	int			dead_philo_count;
+	int			active;
 }	t_params;
 
 typedef struct s_fork
@@ -40,6 +41,7 @@ typedef struct s_fork
 typedef struct s_philo
 {
 	int				nb;
+	int				meal_count;
 	long long		last_meal_at;
 	enum e_philo_state
 	{
