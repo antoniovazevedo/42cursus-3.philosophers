@@ -6,7 +6,7 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 18:25:29 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/05/23 23:34:51 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/05/24 01:11:07 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,15 @@ int	error(t_params *params, t_fork **forks)
 	return (1);
 }
 
+long long	get_time_ms(void)
+{
+	struct timeval	*time;
+
+	time = (struct timeval *)malloc(sizeof(struct timeval));
+	gettimeofday(time, NULL);
+	return (time->tv_sec * 1000 + time->tv_usec / 1000);
+}
+
 int	main(int argc, char **argv)
 {
 	t_params	*params;
@@ -50,6 +59,9 @@ int	main(int argc, char **argv)
 	params = fill_input_from_args(argc, argv);
 	if (!params)
 		return (1);
+	params->start_time = get_time_ms();
+	params->dead_philo_count = 0;
+	printf("start time is %lld\n", params->start_time);
 	forks = create_forks(params->philo_count);
 	if (!forks)
 		return (error(params, forks));

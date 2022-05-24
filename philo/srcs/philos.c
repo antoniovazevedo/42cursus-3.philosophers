@@ -6,43 +6,33 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 23:27:30 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/05/23 23:41:45 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/05/24 01:12:11 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-#include <unistd.h>
 
-static void	debug_philo(t_philo *philo)
+// static void	debug_philo(t_philo *philo)
+// {
+// 	printf("initialize_philo (%d)\n", philo->nb);
+// 	if (philo->right_fork)
+// 		printf("forks: L %d\t\t R %d\n\n",
+// 			philo->left_fork->nb, philo->right_fork->nb);
+// 	else
+// 		printf("forks: L %d\t\t R X\n\n", philo->left_fork->nb);
+// }
+
+void	print_state_message(int nb, char *state)
 {
-	printf("initialize_philo (%d)\n", philo->nb);
-	if (philo->right_fork)
-		printf("forks: L %d\t\t R %d\n\n",
-			philo->left_fork->nb, philo->right_fork->nb);
-	else
-		printf("forks: L %d\t\t R X\n\n", philo->left_fork->nb);
+	printf("%lld %d %s\n", get_time_ms(), nb, state);
 }
 
-static void	print_state_message(int nb, char *state)
-{
-	struct timeval *time;
-
-	time = (struct timeval *)malloc(sizeof(struct timeval));
-	if (!time)
-		return;
-	gettimeofday(time, NULL);
-	printf("%d %d %s\n", time->tv_usec, nb, state);
-	free(time);
-}
-
-// pthread_mutex_lock(&data->philo->mutex);
 void	*main_philo_thread(void *ptr)
 {
 	t_main	*data;
 
 	data = ptr;
-	sleep(1);
-	print_state_message(data->philo->nb, "is initialized");
+	philo_think(data->params, data->philo);
 	return (NULL);
 }
 
@@ -54,6 +44,7 @@ pthread_t	*initialize_philo_thread(t_params *params, int nb, t_fork **forks)
 
 	philo = (t_philo *)malloc(sizeof(t_philo));
 	philo->nb = nb;
+	philo->last_meal_at = params->start_time;
 	philo->state = thinking;
 	philo->left_fork = forks[nb];
 	philo->right_fork = forks[0];
@@ -63,11 +54,23 @@ pthread_t	*initialize_philo_thread(t_params *params, int nb, t_fork **forks)
 		philo->right_fork = forks[nb + 1];
 	if (pthread_mutex_init(&philo->mutex, NULL) != 0)
 		return (NULL);
-	debug_philo(philo);
 	main = (t_main *)malloc(sizeof(t_main));
 	main->params = params;
 	main->philo = philo;
 	thread = (pthread_t *)malloc(sizeof(pthread_t));
 	pthread_create(thread, NULL, &main_philo_thread, main);
 	return (thread);
+}
+
+void	update_philo_state(t_philo *philo, enum e_philo_state state)
+{
+	pthread_mutex_lock(&philo->mutex);
+	philo->state = state;
+	pthread_mutex_unlock(&philo->mutex);
+	if (state == thinking)
+		print_state_message(philo->nb, "is thinking");
+	else if (state == eating)
+		print_state_message(philo->nb, "is eating");
+	else if (state == sleeping)
+		print_state_message(philo->nb, "is sleeping");
 }

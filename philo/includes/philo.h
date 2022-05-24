@@ -6,7 +6,7 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 18:21:11 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/05/23 23:41:16 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/05/24 01:10:07 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,16 @@
 # include <stdlib.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <unistd.h>
 
 typedef struct s_params {
-	int	philo_count;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	number_of_times_each_philosopher_must_eat;
+	int			philo_count;
+	int			time_to_die;
+	int			time_to_eat;
+	int			time_to_sleep;
+	int			number_of_times_each_philosopher_must_eat;
+	long long	start_time;
+	int			dead_philo_count;
 }	t_params;
 
 typedef struct s_fork
@@ -37,6 +40,7 @@ typedef struct s_fork
 typedef struct s_philo
 {
 	int				nb;
+	long long		last_meal_at;
 	enum e_philo_state
 	{
 		thinking = 0,
@@ -58,11 +62,22 @@ t_params	*fill_input_from_args(int argc, char **args);
 /* forks.c */
 void		free_forks(t_fork **list, int count);
 t_fork		**create_forks(int count);
+int			pick_up_forks(t_fork *fork1, t_fork *fork2);
+void		drop_forks(t_fork *fork1, t_fork *fork2);
 
 /* threads.c */
-// void		*main_philo_thread(void *ptr);
 int			create_threads(t_params *params, t_fork **forks);
 
 /* philos.c */
+void		print_state_message(int nb, char *state);
 pthread_t	*initialize_philo_thread(t_params *params, int nb, t_fork **forks);
+void		update_philo_state(t_philo *philo, enum e_philo_state state);
+
+/* actions.c */
+void		philo_think(t_params *params, t_philo *philo);
+void		philo_sleep(t_params *params, t_philo *philo);
+
+/* main.c */
+long long	get_time_ms(void);
+
 #endif
