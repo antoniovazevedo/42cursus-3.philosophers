@@ -6,7 +6,7 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 18:21:11 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/05/28 22:34:00 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/05/28 23:06:57 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,15 @@
 # include <unistd.h>
 
 typedef struct s_params {
-	int			philo_count;
-	int			time_to_die;
-	int			time_to_eat;
-	int			time_to_sleep;
-	int			min_meal_count;
-	long long	start_time;
-	int			dead_philo_count;
-	int			active;
+	int				philo_count;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				min_meal_count;
+	long long		start_time;
+	int				dead_philo_count;
+	int				active;
+	pthread_mutex_t	mutex;
 }	t_params;
 
 typedef struct s_fork
@@ -82,5 +83,8 @@ void		philo_sleep(t_params *params, t_philo *philo);
 
 /* main.c */
 long long	get_time_ms(long long start_time);
+
+/* state.c */
+int			philo_dead_count(t_params *params);
 
 #endif

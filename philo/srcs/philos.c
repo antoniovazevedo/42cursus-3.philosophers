@@ -6,21 +6,11 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 23:27:30 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/05/28 22:31:42 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/05/28 23:10:33 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
-// static void	debug_philo(t_philo *philo)
-// {
-// 	printf("initialize_philo (%d)\n", philo->nb);
-// 	if (philo->right_fork)
-// 		printf("forks: L %d\t\t R %d\n\n",
-// 			philo->left_fork->nb, philo->right_fork->nb);
-// 	else
-// 		printf("forks: L %d\t\t R X\n\n", philo->left_fork->nb);
-// }
 
 void	print_state_message(int nb, char *state, t_params *params)
 {
@@ -62,7 +52,8 @@ pthread_t	*initialize_philo_thread(t_params *params, int nb, t_fork **forks)
 	return (thread);
 }
 
-void	update_philo_state(t_params *params, t_philo *philo, enum e_philo_state state)
+void	update_philo_state(t_params *params, t_philo *philo,
+			enum e_philo_state state)
 {
 	pthread_mutex_lock(&philo->mutex);
 	philo->state = state;
