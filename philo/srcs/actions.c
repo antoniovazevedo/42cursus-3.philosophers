@@ -6,7 +6,7 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 23:47:15 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/05/24 01:21:23 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/05/28 22:34:20 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static int	philo_is_dead(t_params *params, t_philo *philo)
 {
-	if (get_time_ms() - philo->last_meal_at >= params->time_to_die)
+	if (get_time_ms(0) - philo->last_meal_at >= params->time_to_die)
 	{
-		print_state_message(philo->nb + 1, "died");
+		print_state_message(philo->nb + 1, "died", params);
 		params->dead_philo_count++;
 		return (1);
 	}
@@ -36,9 +36,9 @@ int	philo_eat(t_params *params, t_philo *philo)
 		return (1);
 	if (pick_up_forks(philo->left_fork, philo->right_fork))
 	{
-		update_philo_state(philo, eating);
+		update_philo_state(params, philo, eating);
 		pthread_mutex_lock(&philo->mutex);
-		philo->last_meal_at = get_time_ms();
+		philo->last_meal_at = get_time_ms(0);
 		pthread_mutex_unlock(&philo->mutex);
 		usleep(params->time_to_eat * 1000);
 		drop_forks(philo->left_fork, philo->right_fork);
@@ -56,7 +56,7 @@ void	philo_think(t_params *params, t_philo *philo)
 		|| (params->min_meal_count > 0
 			&& philo->meal_count == params->min_meal_count))
 		return ;
-	update_philo_state(philo, thinking);
+	update_philo_state(params, philo, thinking);
 	while (!philo_eat(params, philo))
 	{
 		usleep(50000);
@@ -72,7 +72,7 @@ void	philo_sleep(t_params *params, t_philo *philo)
 		|| (params->min_meal_count > 0
 			&& philo->meal_count == params->min_meal_count))
 		return ;
-	update_philo_state(philo, sleeping);
+	update_philo_state(params, philo, sleeping);
 	usleep(params->time_to_sleep * 1000);
 	philo_think(params, philo);
 }

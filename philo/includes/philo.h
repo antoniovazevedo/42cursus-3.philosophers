@@ -6,7 +6,7 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 18:21:11 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/05/24 01:20:25 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/05/28 22:34:00 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,16 @@ void		drop_forks(t_fork *fork1, t_fork *fork2);
 int			create_threads(t_params *params, t_fork **forks);
 
 /* philos.c */
-void		print_state_message(int nb, char *state);
+void		print_state_message(int nb, char *state, t_params *params);
 pthread_t	*initialize_philo_thread(t_params *params, int nb, t_fork **forks);
-void		update_philo_state(t_philo *philo, enum e_philo_state state);
+void		update_philo_state(t_params *params, t_philo *philo,
+				enum e_philo_state state);
 
 /* actions.c */
 void		philo_think(t_params *params, t_philo *philo);
 void		philo_sleep(t_params *params, t_philo *philo);
 
 /* main.c */
-long long	get_time_ms(void);
+long long	get_time_ms(long long start_time);
 
 #endif
