@@ -6,7 +6,7 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 23:47:15 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/05/28 23:08:29 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/05/28 23:26:43 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void	philo_think(t_params *params, t_philo *philo)
 	update_philo_state(params, philo, thinking);
 	while (!philo_eat(params, philo))
 	{
-		usleep(50000);
+		usleep(1000);
+		// printf("philo_dead_count= %d\n", philo_dead_count(params));
 		if (philo_dead_count(params) > 0 || philo_is_dead(params, philo))
 			return ;
 	}
