@@ -6,7 +6,7 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 23:16:09 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/05/28 22:55:53 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/05/31 21:36:30 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ int	create_threads(t_params *params, t_fork **forks)
 	}
 	philo_i = 0;
 	while (philo_i < params->philo_count)
-		pthread_join(*(threads[philo_i++]), NULL);
+	{
+		if (pthread_join(*(threads[philo_i++]), NULL) != 0)
+		{
+			printf("Error when terminating thread %d\n", philo_i);
+			return (philo_i);
+		}
+	}
 	return (params->philo_count);
 }

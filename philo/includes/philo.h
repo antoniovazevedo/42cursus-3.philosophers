@@ -6,7 +6,7 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 18:21:11 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/05/28 23:06:57 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/05/31 22:04:49 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,9 @@ void		update_philo_state(t_params *params, t_philo *philo,
 				enum e_philo_state state);
 
 /* actions.c */
-void		philo_think(t_params *params, t_philo *philo);
+int			philo_eat(t_params *params, t_philo *philo);
 void		philo_sleep(t_params *params, t_philo *philo);
+void		philo_think(t_params *params, t_philo *philo);
 
 /* main.c */
 long long	get_time_ms(long long start_time);
