@@ -10,7 +10,8 @@ OBJS	= ${SRCS:.c=.o}
 INCDIR	= includes
 NAME	= philo
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror 
+CFLAGS	= -Wall -Wextra -Werror -fsanitize=thread
+#  -fsanitize=thread
 # -fsanitize=address -g
 RM		= rm -f
 

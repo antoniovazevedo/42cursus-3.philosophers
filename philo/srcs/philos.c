@@ -6,7 +6,7 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 23:27:30 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/05/31 22:18:15 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/06/08 23:10:41 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	print_state_message(int nb, char *state, t_params *params)
 {
+	usleep(10);
+	if (philo_dead_count(params) > 0)
+		return;
 	printf("%lld %d %s\n", get_time_ms(params->start_time), nb, state);
 }
 
@@ -42,8 +45,6 @@ pthread_t	*initialize_philo_thread(t_params *params, int nb, t_fork **forks)
 		philo->right_fork = NULL;
 	else if (nb + 1 < params->philo_count)
 		philo->right_fork = forks[nb + 1];
-	if (pthread_mutex_init(&philo->mutex, NULL) != 0)
-		return (NULL);
 	main = (t_main *)malloc(sizeof(t_main));
 	main->params = params;
 	main->philo = philo;
@@ -55,7 +56,6 @@ pthread_t	*initialize_philo_thread(t_params *params, int nb, t_fork **forks)
 void	update_philo_state(t_params *params, t_philo *philo,
 			enum e_philo_state state)
 {
-	pthread_mutex_lock(&philo->mutex);
 	philo->state = state;
 	if (state == thinking && philo->meal_count > 0)
 		print_state_message(philo->nb + 1, "is thinking", params);
@@ -63,5 +63,4 @@ void	update_philo_state(t_params *params, t_philo *philo,
 		print_state_message(philo->nb + 1, "is eating", params);
 	else if (state == sleeping)
 		print_state_message(philo->nb + 1, "is sleeping", params);
-	pthread_mutex_unlock(&philo->mutex);
 }
