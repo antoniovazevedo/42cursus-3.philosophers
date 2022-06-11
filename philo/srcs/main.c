@@ -6,21 +6,11 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 18:25:29 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/06/11 12:59:01 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/06/11 13:12:52 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
-static void	debug_params(t_params *params)
-{
-	printf("philo_count =\t %d\n", params->philo_count);
-	printf("time_to_die =\t %d\n", params->time_to_die);
-	printf("time_to_eat =\t %d\n", params->time_to_eat);
-	printf("time_to_sleep =\t %d\n", params->time_to_sleep);
-	if (params->min_meal_count)
-		printf("min_meal_count =\t %d\n", params->min_meal_count);
-}
 
 static void	free_data(t_params *params, t_fork **forks)
 {

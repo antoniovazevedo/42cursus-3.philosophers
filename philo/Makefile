@@ -10,9 +10,7 @@ OBJS	= ${SRCS:.c=.o}
 INCDIR	= includes
 NAME	= philo
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror -fsanitize=thread
-#  -fsanitize=thread
-# -fsanitize=address -g
+CFLAGS	= -Wall -Wextra -Werror
 RM		= rm -f
 
 all:	${NAME}
@@ -21,7 +19,7 @@ ${NAME}: ${OBJS}
 		${CC} ${CFLAGS} ${OBJS} -o ${NAME}
 
 %.o:	%.c
-		${CC} ${CFLAGS}  -c $< -o $@  -I ${INCDIR}
+		${CC} ${CFLAGS}  -c $< -o $@  -I ${INCDIR} 
 
 clean:
 		${RM} ${OBJS}
