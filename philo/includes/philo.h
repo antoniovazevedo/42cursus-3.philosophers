@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: aazevedo <aazevedo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 18:21:11 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/06/11 12:58:05 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/06/11 18:50:35 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_params {
 	int				min_meal_count;
 	long long		start_time;
 	int				dead_philo_count;
-	int				active;
+	int				*philo_meal_count;
 	pthread_mutex_t	mutex;
 }	t_params;
 
@@ -76,6 +76,7 @@ void		print_state_message(int nb, char *state, t_params *params);
 pthread_t	*initialize_philo_thread(t_params *params, int nb, t_fork **forks);
 void		update_philo_state(t_params *params, t_philo *philo,
 				enum e_philo_state state);
+void		print_state_message_died(int nb, t_params *params);
 
 /* actions.c */
 void		philo_think(t_params *params, t_philo *philo);
@@ -86,6 +87,6 @@ long long	get_time_ms(long long start_time);
 /* state.c */
 int			philo_dead_count(t_params *params);
 int			philo_is_dead(t_params *params, t_philo *philo);
-int			philo_has_eaten_enough(t_params *params, t_philo *philo);
-
+int			everyone_has_eaten_enough(t_params *params);
+void		record_meal(t_params *params, int philo_nb);
 #endif

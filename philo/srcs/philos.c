@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philos.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: aazevedo <aazevedo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 23:27:30 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/06/11 13:38:47 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/06/11 18:57:42 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,18 @@ static void	*main_philo_thread(void *ptr)
 
 void	print_state_message(int nb, char *state, t_params *params)
 {
-	usleep(10);
+	usleep(100);
 	if (philo_dead_count(params) > 0)
 		return ;
 	printf("%lld %d %s\n", get_time_ms(params->start_time), nb, state);
+}
+
+void	print_state_message_died(int nb, t_params *params)
+{
+	usleep(50 * nb);
+	if (philo_dead_count(params) > 0)
+		return ;
+	print_state_message(nb, "died", params);
 }
 
 pthread_t	*initialize_philo_thread(t_params *params, int nb, t_fork **forks)

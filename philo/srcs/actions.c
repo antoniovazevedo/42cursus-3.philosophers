@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: aazevedo <aazevedo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 23:47:15 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/06/11 13:40:06 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/06/11 19:01:46 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ static int	philo_eat(t_params *params, t_philo *philo)
 	if (!philo->left_fork || !philo->right_fork)
 		return (0);
 	else if (philo_is_dead(params, philo) || philo_dead_count(params) > 0
-		|| philo_has_eaten_enough(params, philo))
+		|| everyone_has_eaten_enough(params))
 		return (1);
 	if (pick_up_forks(philo->left_fork, philo->right_fork))
 	{
-		usleep(500);
+		usleep(100);
 		print_state_message(philo->nb + 1, "has taken a fork", params);
 		print_state_message(philo->nb + 1, "has taken a fork", params);
 		update_philo_state(params, philo, eating);
@@ -42,6 +42,7 @@ static int	philo_eat(t_params *params, t_philo *philo)
 			return (1);
 		drop_forks(philo->left_fork, philo->right_fork);
 		philo->meal_count++;
+		record_meal(params, philo->nb);
 		return (1);
 	}
 	return (0);
@@ -52,7 +53,7 @@ static void	philo_sleep(t_params *params, t_philo *philo)
 	long long	start_time;
 
 	update_philo_state(params, philo, sleeping);
-	if (philo_dead_count(params) > 0 || philo_has_eaten_enough(params, philo))
+	if (philo_dead_count(params) > 0 || everyone_has_eaten_enough(params))
 		return ;
 	start_time = get_time_ms(0);
 	while (get_time_ms(start_time) < params->time_to_sleep)
@@ -65,7 +66,7 @@ static void	philo_sleep(t_params *params, t_philo *philo)
 
 void	philo_think(t_params *params, t_philo *philo)
 {
-	if (philo_dead_count(params) > 0 || philo_has_eaten_enough(params, philo))
+	if (philo_dead_count(params) > 0 || everyone_has_eaten_enough(params))
 		return ;
 	update_philo_state(params, philo, thinking);
 	while (!philo_eat(params, philo))
