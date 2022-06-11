@@ -6,27 +6,27 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 23:27:30 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/06/08 23:10:41 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/06/11 13:00:47 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	print_state_message(int nb, char *state, t_params *params)
-{
-	usleep(10);
-	if (philo_dead_count(params) > 0)
-		return;
-	printf("%lld %d %s\n", get_time_ms(params->start_time), nb, state);
-}
-
-void	*main_philo_thread(void *ptr)
+static void	*main_philo_thread(void *ptr)
 {
 	t_main	*data;
 
 	data = ptr;
 	philo_think(data->params, data->philo);
 	return (NULL);
+}
+
+void	print_state_message(int nb, char *state, t_params *params)
+{
+	usleep(10);
+	if (philo_dead_count(params) > 0)
+		return ;
+	printf("%lld %d %s\n", get_time_ms(params->start_time), nb, state);
 }
 
 pthread_t	*initialize_philo_thread(t_params *params, int nb, t_fork **forks)

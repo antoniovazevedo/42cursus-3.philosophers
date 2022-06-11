@@ -6,7 +6,7 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 23:15:27 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/06/08 23:11:27 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/06/11 12:53:57 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ int	pick_up_forks(t_fork *fork1, t_fork *fork2)
 		fork2_taken = fork2->is_taken;
 		if (!fork1_taken && !fork2_taken)
 		{
-			// printf("forks %d and %d taken\n", fork1->nb, fork2->nb);
-
 			fork1->is_taken = 1;
 			fork2->is_taken = 1;
 			ret = 1;
@@ -83,7 +81,6 @@ void	drop_forks(t_fork *fork1, t_fork *fork2)
 	pthread_mutex_lock(&fork2->mutex);
 	fork1->is_taken = 0;
 	fork2->is_taken = 0;
-	// printf("forks %d and %d dropped\n", fork1->nb, fork2->nb);
 	pthread_mutex_unlock(&fork1->mutex);
 	pthread_mutex_unlock(&fork2->mutex);
 }

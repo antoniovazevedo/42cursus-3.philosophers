@@ -6,7 +6,7 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 18:21:11 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/06/08 22:32:13 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/06/11 12:58:05 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_main {
 	t_philo		*philo;
 }	t_main;
 
+/* validation.c */
 t_params	*fill_input_from_args(int argc, char **args);
 
 /* forks.c */
@@ -77,8 +78,6 @@ void		update_philo_state(t_params *params, t_philo *philo,
 				enum e_philo_state state);
 
 /* actions.c */
-int			philo_eat(t_params *params, t_philo *philo);
-void		philo_sleep(t_params *params, t_philo *philo);
 void		philo_think(t_params *params, t_philo *philo);
 
 /* main.c */
@@ -86,5 +85,7 @@ long long	get_time_ms(long long start_time);
 
 /* state.c */
 int			philo_dead_count(t_params *params);
+int			philo_is_dead(t_params *params, t_philo *philo);
+int			philo_has_eaten_enough(t_params *params, t_philo *philo);
 
 #endif
