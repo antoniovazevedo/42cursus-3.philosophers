@@ -6,7 +6,7 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 23:27:30 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/06/11 13:03:53 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/06/11 13:38:47 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static void	*main_philo_thread(void *ptr)
 
 	data = ptr;
 	philo_think(data->params, data->philo);
+	free(data->philo);
+	free(data);
 	return (NULL);
 }
 

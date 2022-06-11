@@ -6,13 +6,13 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 23:16:09 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/06/11 13:07:28 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/06/11 13:34:12 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static void	free_threads(pthread_t **list, int count)
+static int	free_threads(pthread_t **list, int count)
 {
 	int	i;
 
@@ -23,6 +23,7 @@ static void	free_threads(pthread_t **list, int count)
 		i++;
 	}
 	free(list);
+	return (count);
 }
 
 int	create_threads(t_params *params, t_fork **forks)
@@ -36,10 +37,7 @@ int	create_threads(t_params *params, t_fork **forks)
 	{
 		threads[philo_i] = initialize_philo_thread(params, philo_i, forks);
 		if (!threads[philo_i])
-		{
-			free_threads(threads, philo_i);
-			return (philo_i);
-		}
+			return (free_threads(threads, philo_i));
 		philo_i++;
 	}
 	philo_i = 0;
@@ -51,5 +49,6 @@ int	create_threads(t_params *params, t_fork **forks)
 			return (philo_i);
 		}
 	}
+	free_threads(threads, params->philo_count);
 	return (params->philo_count);
 }

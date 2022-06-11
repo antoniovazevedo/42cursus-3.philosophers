@@ -6,7 +6,7 @@
 /*   By: aazevedo <aazevedo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 23:47:15 by aazevedo          #+#    #+#             */
-/*   Updated: 2022/06/11 13:00:19 by aazevedo         ###   ########.fr       */
+/*   Updated: 2022/06/11 13:40:06 by aazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	philo_eat(t_params *params, t_philo *philo)
 		return (1);
 	if (pick_up_forks(philo->left_fork, philo->right_fork))
 	{
-		usleep(1000);
+		usleep(500);
 		print_state_message(philo->nb + 1, "has taken a fork", params);
 		print_state_message(philo->nb + 1, "has taken a fork", params);
 		update_philo_state(params, philo, eating);
